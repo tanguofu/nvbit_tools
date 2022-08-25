@@ -2497,4 +2497,12 @@ typedef struct cuGraphInstantiate_params_st {
     size_t bufferSize;
 } cuGraphInstantiate_params;
 
+
+typedef struct cuModuleGetFunction_params_st {
+    const char* symbol;
+    void** pfn;
+    int  cudaVersion;
+    unsigned long long flags;
+} cuGetProcAddress_params;
+
 #endif  // file guard

@@ -121,6 +121,20 @@ std::unordered_set<CUfunction> already_instrumented;
  * */
 void nvbit_at_cuda_event(CUcontext ctx, int is_exit, nvbit_api_cuda_t cbid,
                          const char *name, void *params, CUresult *pStatus) {
+  
+  if (strcmp(name, "cuModuleGetFunction") == 0) {
+    cuModuleGetFunction_params *p =(cuModuleGetFunction_params*) params;
+    printf("%s: %s\n", name, p->name);
+    return;
+  }
+
+  // CUresult cuGetProcAddress ( const char* symbol, void** pfn, int  cudaVersion, cuuint64_t flags )
+  if (strcmp(name, "cuGetProcAddress") == 0) {
+    cuGetProcAddress_params *p =(cuGetProcAddress_params*) params;
+    printf("%s: %s\n", name, p->symbol);
+    return;
+  }
+
   printf("%s\n", name);
 }
 
